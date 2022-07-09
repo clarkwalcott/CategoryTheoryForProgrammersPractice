@@ -9,8 +9,8 @@ type F func(x interface{}) interface{}
 func main() {
 	myFunc := func(x interface{}) interface{} { return "abcd" }
 
-	// Expect that id . f === f . id == f
-	// Output should be abcd, not
+	// Expect that id . f == f . id == f
+	// Output should be abcd, not input
 	fmt.Println(compose(id, myFunc)("input"))
 	fmt.Println(compose(myFunc, id)("input"))
 }
