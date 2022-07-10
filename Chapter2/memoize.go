@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 )
 
@@ -66,6 +67,34 @@ func testMemo() {
 	fmt.Printf("Three More Fast:\n%s\n%s\n%s\n\n", memFunc(input2), memFunc(input2), memFunc(input2))
 }
 
+// insecure rand is necessary here
+func testRandomMemo() {
+	myFunc := func(x interface{}) interface{} {
+		i, ok := x.(int64)
+		if !ok {
+			fmt.Printf("Input of type %T was not an int64.", x)
+		}
+
+		rand.Seed(i)
+
+		// simulates a long running function
+		time.Sleep(2 * time.Second)
+		return rand.Intn(10)
+	}
+
+	memoizer := New()
+	memFunc := memoizer.Memoize(myFunc)
+
+	for i := 0; i < 100; i++ {
+		val := memFunc(int64(i % 10))
+		fmt.Println("Pseudo-Random Number #", (i+1), ":", val)
+	}
+}
+
 func main() {
+	fmt.Println("Testing Memoize Function:")
 	testMemo()
+
+	fmt.Println("Testing Memoize Random Number Generator:")
+	testRandomMemo()
 }
