@@ -41,7 +41,7 @@ func New() Memoizer {
 	}
 }
 
-func main() {
+func testMemo() {
 	input1 := "world!"
 	input2 := "is it me you're looking for?"
 
@@ -61,8 +61,11 @@ func main() {
 
 	fmt.Printf("Three Fast:\n%s\n%s\n%s\n\n", memFunc(input1), memFunc(input1), memFunc(input1))
 
-	// another slow
 	fmt.Printf("Another Slow:\n%s\n\n", memFunc(input2))
 
 	fmt.Printf("Three More Fast:\n%s\n%s\n%s\n\n", memFunc(input2), memFunc(input2), memFunc(input2))
+}
+
+func main() {
+	testMemo()
 }
